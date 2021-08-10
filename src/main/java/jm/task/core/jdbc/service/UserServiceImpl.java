@@ -9,7 +9,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     UserDaoJDBCImpl daoJDBC = new UserDaoJDBCImpl();
 
-    public void createUsersTable(){
+    public void createUsersTable() {
         daoJDBC.createUsersTable();
     }
 
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getAllUsers() {
-        return null;
+        return daoJDBC.getAllUsers();
     }
 
     public void cleanUsersTable() {

@@ -3,14 +3,17 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
 
     }
+
     private static Statement statement = Util.statement;
 
     public void createUsersTable() {
@@ -37,7 +40,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             statement.execute(sqlSaveUser);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -52,7 +55,21 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public List<User> getAllUsers() {
-        return null;
+        List<User> listUser = new ArrayList<>();
+        String sqlListUser = "SELECT * FROM users";
+        try {
+            ResultSet resultSet = statement.executeQuery(sqlListUser);
+            while (resultSet.next()) {
+                long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String lastName = resultSet.getString("lastname");
+                byte age = resultSet.getByte("age");
+                listUser.add(new User(name, lastName, age));
+            }
+        } catch (SQLException e) {
+
+        }
+        return listUser;
     }
 
     public void cleanUsersTable() {

@@ -8,6 +8,7 @@ public class Util {
     private static String pass = "root";
 
     public static Statement statement;
+
     static {
         try {
             Connection connection = DriverManager.getConnection(url, userName, pass);
